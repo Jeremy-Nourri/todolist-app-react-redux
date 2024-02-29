@@ -36,6 +36,7 @@ function NewProductForm() {
             <input type="text" id="price" ref={inputPrice} required/>
             <button type="submit">Ajouter</button>
           </form>
+          <hr />
         </>
       );
     }

@@ -7,9 +7,14 @@ function App() {
 
   return (
     <>
-      <h1>Application de gestion de produits</h1>
-      <NewProductForm />
-      <ProductList />
+      <header>
+        <h1>Application de gestion de produits</h1>
+      </header>
+      <main>
+        <NewProductForm />
+        <ProductList />
+      </main>
+
     </>
   )
 }
