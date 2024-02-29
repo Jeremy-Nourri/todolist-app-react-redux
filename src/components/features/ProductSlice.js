@@ -17,12 +17,17 @@ const productSlice = createSlice({
             state.products.push(newProduct);
 
         },
-        deleteTask: (state, action) => {
+        deleteProduct: (state, action) => {
             state.products = state.products.filter((product) => product.id !== action.payload);
         },
+        updateProduct: (state, action) => {
+            const { id, name, price } = action.payload;
+            const productIndexUpdated = state.products.findIndex((elem) => elem.id === id);
+            state.products[productIndexUpdated] = { ...state.products[productIndexUpdated], name, price}
+        }
     }
 
 })
 
-export const { addProduct } = productSlice.actions;
+export const { addProduct, deleteProduct, updateProduct } = productSlice.actions;
 export default productSlice.reducer;

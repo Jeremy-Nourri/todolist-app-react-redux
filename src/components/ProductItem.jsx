@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useDispatch } from "react-redux";
 import { useState, useRef } from "react";
-import { deleteProduct } from "./features/ProductSlice"
+import { deleteProduct, updateProduct } from "./features/ProductSlice"
 
 function ProductItem({ product }) {
 
@@ -12,8 +12,20 @@ function ProductItem({ product }) {
     const inputName = useRef();
     const inputPrice = useRef();
 
-    const handleSubmitUpdate = () => {
-        
+    const handleSubmitUpdate = (e) => {
+
+        e.preventDefault();
+
+        const cleanPrice = parseFloat(inputPrice.current.value);
+        const cleanName = inputName.current.value.toLowerCase().trim();
+
+        const updatedProduct = {
+            id: product.id,
+            name: cleanName,
+            price: cleanPrice
+        }
+
+        dispatch(updateProduct(updatedProduct)),
         setIsClickUpdate(false);
     }
 
@@ -40,21 +52,21 @@ function ProductItem({ product }) {
                     </div>
                 </div>
             ) : (
-                <div>
+                <form onSubmit={handleSubmitUpdate}>
                     <div>
                         <label htmlFor="name">Dénomination</label>
-                        <input type="text" id="name" value={product.name} ref={inputName} required/>
+                        <input type="text" id="name" defaultValue={product.name} ref={inputName}  required/>
                     </div>
                     <div>
                         <label htmlFor="price">Prix</label>
-                        <input type="text" id="price" value={product.price} ref={inputPrice} required/>
+                        <input type="text" id="price" defaultValue={product.price} ref={inputPrice} required/>
                     </div>
                     <div>
-                        <button onClick={handleSubmitUpdate}>
+                        <button type="submit" onSubmit={handleSubmitUpdate}>
                             Valider
                         </button>
                     </div>
-                </div>
+                </form>
             )
         }
 
